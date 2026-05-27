@@ -25,11 +25,13 @@ st.markdown("""
 h1 {
     text-align: center;
     color: #2b2d42;
-    font-size: 65px !important;
+    font-size: 42px !important;
+    margin-bottom: 50px;
 }
 
-h2, h3 {
+h2 {
     color: #2b2d42;
+    font-size: 28px !important;
 }
 
 textarea {
@@ -46,7 +48,7 @@ div.stButton > button {
     border-radius: 14px;
     border: none;
     padding: 12px 28px;
-    font-size: 24px;
+    font-size: 22px;
     font-weight: bold;
 }
 
@@ -70,10 +72,10 @@ div.stButton > button:hover {
 """, unsafe_allow_html=True)
 
 # =========================
-# CENTRAR TODO
+# CENTRAR TODO EL CONTENIDO
 # =========================
 
-left, center, right = st.columns([1, 5, 1])
+left, center, right = st.columns([1.2, 4, 1.2])
 
 with center:
 
@@ -86,10 +88,8 @@ with center:
         unsafe_allow_html=True
     )
 
-    st.write("")
-
     # =========================
-    # COLUMNAS PRINCIPALES
+    # COLUMNAS
     # =========================
 
     col1, col2 = st.columns([1.7, 1])

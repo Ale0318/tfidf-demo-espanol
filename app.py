@@ -15,7 +15,7 @@ st.markdown("""
 }
 
 .block-container{
-    max-width: 1200px;
+    max-width: 1000px;
     padding-top: 2rem;
     margin: auto;
 }
@@ -60,7 +60,7 @@ st.write("")
 st.write("")
 
 # COLUMNAS
-col1, col2 = st.columns([1.6, 1])
+col1, col2 = st.columns([1.4, 1])
 
 # COLUMNA IZQUIERDA
 with col1:

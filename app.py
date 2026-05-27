@@ -1,9 +1,9 @@
 import streamlit as st
 
-# CONFIGURACIÓN
+# CONFIG
 st.set_page_config(
     page_title="Demo TF-IDF",
-    layout="centered"
+    layout="wide"
 )
 
 # ESTILOS
@@ -14,9 +14,19 @@ st.markdown("""
     background-color: white;
 }
 
+.main {
+    max-width: 1100px;
+    margin: auto;
+}
+
 h1 {
     font-size: 52px !important;
     font-weight: 800 !important;
+    text-align: center;
+}
+
+textarea, input {
+    border-radius: 12px !important;
 }
 
 div.stButton > button {
@@ -33,10 +43,6 @@ div.stButton > button:hover {
     color: white;
 }
 
-textarea {
-    border-radius: 12px !important;
-}
-
 </style>
 """, unsafe_allow_html=True)
 
@@ -45,49 +51,44 @@ st.markdown("# 🔎 Demo TF-IDF en Español")
 
 st.write("")
 
-# DOCUMENTOS
-st.markdown("### 📑 Documentos (uno por línea):")
+# COLUMNAS PRINCIPALES
+col1, col2 = st.columns([2.2, 1])
 
-documentos = st.text_area(
-    "",
-    height=220,
+# IZQUIERDA
+with col1:
 
-    value="""Amor, no llores, veo luz en tus males
+    st.markdown("### 📑 Documentos (uno por línea):")
+
+    documentos = st.text_area(
+        "",
+        height=180,
+        value="""Amor, no llores, veo luz en tus males
 Siguiéndote el corazón, bailando en un canto de zorzales
 Niño, soy un hombre con tristeza, sé del peso en tu verdad
 Escaparte por robar porque robás para cenar
 Vi tus dedos en el barro con olor a libertad
 Sé que te querés dormir pa' no volver a despertar"""
-)
+    )
 
-# PREGUNTA
-st.markdown("### ❓ Escribe tu pregunta:")
+    st.markdown("### ❓ Escribe tu pregunta:")
 
-pregunta = st.text_input(
-    "",
-    value="¿Qué sentimiento transmite la canción?"
-)
+    pregunta = st.text_input(
+        "",
+        value="¿Qué sentimiento transmite la canción?"
+    )
 
-st.write("")
-st.write("")
+    st.write("")
+    st.write("")
 
-# BOTÓN
-st.button("🔎 Analizar")
+    st.button("🔎 Analizar")
 
-st.write("")
-st.write("")
-
-# PREGUNTAS SUGERIDAS
-st.markdown("## 💡 Preguntas sugeridas:")
-
-col1, col2 = st.columns(2)
-
-with col1:
-    st.button("¿De qué trata la canción?")
-    st.button("¿Qué emoción expresa la letra?")
-    st.button("¿Qué palabras se repiten más?")
-
+# DERECHA
 with col2:
+
+    st.markdown("## 💡 Preguntas sugeridas:")
+
+    st.button("¿De qué trata la canción?")
+    st.button("¿Qué emoción expresa?")
     st.button("¿Qué sentimiento transmite?")
     st.button("¿La canción habla de tristeza?")
-    st.button("¿Cuál es el tema principal?")
+    st.button("¿Cuál es el tema principal?")cipal?")

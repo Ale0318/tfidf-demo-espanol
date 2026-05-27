@@ -15,14 +15,8 @@ st.markdown("""
 }
 
 .block-container{
-    max-width: 1000px;
+    max-width: 1400px;
     padding-top: 2rem;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-[data-testid="stHorizontalBlock"]{
-    justify-content: center;
 }
 
 h1 {
@@ -32,7 +26,7 @@ h1 {
     color: #2b2d42;
 }
 
-h2, h3 {
+h2 {
     color: #2b2d42;
 }
 
@@ -64,46 +58,51 @@ st.markdown("# 🔎 Demo TF-IDF en Español")
 st.write("")
 st.write("")
 
-# COLUMNAS
-col1, col2 = st.columns([1.4, 1])
+# CENTRAR TODO EL BLOQUE
+left, center, right = st.columns([1, 3, 1])
 
-# COLUMNA IZQUIERDA
-with col1:
+with center:
 
-    st.markdown("## 📑 Documentos (uno por línea):")
+    # COLUMNAS INTERNAS
+    col1, col2 = st.columns([1.6, 1])
 
-    documentos = st.text_area(
-        "",
-        height=140,
-        value="""Amor, no llores, veo luz en tus males
+    # IZQUIERDA
+    with col1:
+
+        st.markdown("## 📑 Documentos (uno por línea):")
+
+        documentos = st.text_area(
+            "",
+            height=140,
+            value="""Amor, no llores, veo luz en tus males
 Siguiéndote el corazón, bailando en un canto de zorzales
 Niño, soy un hombre con tristeza, sé del peso en tu verdad
 Escaparte por robar porque robás para cenar
 Vi tus dedos en el barro con olor a libertad
 Sé que te querés dormir pa' no volver a despertar"""
-    )
+        )
 
-    st.write("")
+        st.write("")
 
-    st.markdown("## ❓ Escribe tu pregunta:")
+        st.markdown("## ❓ Escribe tu pregunta:")
 
-    pregunta = st.text_input(
-        "",
-        value="¿Qué sentimiento transmite la canción?"
-    )
+        pregunta = st.text_input(
+            "",
+            value="¿Qué sentimiento transmite la canción?"
+        )
 
-    st.write("")
-    st.write("")
+        st.write("")
+        st.write("")
 
-    st.button("🔎 Analizar")
+        st.button("🔎 Analizar")
 
-# COLUMNA DERECHA
-with col2:
+    # DERECHA
+    with col2:
 
-    st.markdown("## 💡 Preguntas sugeridas:")
+        st.markdown("## 💡 Preguntas sugeridas:")
 
-    st.button("¿De qué trata la canción?")
-    st.button("¿Qué emoción expresa?")
-    st.button("¿Qué sentimiento transmite?")
-    st.button("¿La canción habla de tristeza?")
-    st.button("¿Cuál es el tema principal?")
+        st.button("¿De qué trata la canción?")
+        st.button("¿Qué emoción expresa?")
+        st.button("¿Qué sentimiento transmite?")
+        st.button("¿La canción habla de tristeza?")
+        st.button("¿Cuál es el tema principal?")

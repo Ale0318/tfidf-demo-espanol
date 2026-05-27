@@ -2,8 +2,8 @@ import streamlit as st
 
 # CONFIGURACIÓN
 st.set_page_config(
-    page_title="Demo TF-IDF en Español",
-    layout="wide"
+    page_title="Demo TF-IDF",
+    layout="centered"
 )
 
 # ESTILOS
@@ -11,31 +11,30 @@ st.markdown("""
 <style>
 
 .stApp {
-    background-color: #f5f5f5;
+    background-color: white;
 }
 
 h1 {
-    font-size: 58px !important;
+    font-size: 52px !important;
     font-weight: 800 !important;
+}
+
+div.stButton > button {
+    border-radius: 14px;
+    background-color: #ff5757;
+    color: white;
+    border: none;
+    font-size: 22px;
+    padding: 10px 20px;
+}
+
+div.stButton > button:hover {
+    background-color: #ff4040;
+    color: white;
 }
 
 textarea {
     border-radius: 12px !important;
-}
-
-div.stButton > button {
-    background-color: #ff5757;
-    color: white;
-    border: none;
-    border-radius: 14px;
-    padding: 12px 24px;
-    font-size: 28px;
-    font-weight: 600;
-}
-
-div.stButton > button:hover {
-    background-color: #ff3b3b;
-    color: white;
 }
 
 </style>
@@ -44,48 +43,51 @@ div.stButton > button:hover {
 # TÍTULO
 st.markdown("# 🔎 Demo TF-IDF en Español")
 
-# COLUMNAS
-col1, col2 = st.columns([2,1])
+st.write("")
 
-# ---------------- IZQUIERDA ----------------
+# DOCUMENTOS
+st.markdown("### 📑 Documentos (uno por línea):")
+
+documentos = st.text_area(
+    "",
+    height=220,
+
+    value="""Amor, no llores, veo luz en tus males
+Siguiéndote el corazón, bailando en un canto de zorzales
+Niño, soy un hombre con tristeza, sé del peso en tu verdad
+Escaparte por robar porque robás para cenar
+Vi tus dedos en el barro con olor a libertad
+Sé que te querés dormir pa' no volver a despertar"""
+)
+
+# PREGUNTA
+st.markdown("### ❓ Escribe tu pregunta:")
+
+pregunta = st.text_input(
+    "",
+    value="¿Qué sentimiento transmite la canción?"
+)
+
+st.write("")
+st.write("")
+
+# BOTÓN
+st.button("🔎 Analizar")
+
+st.write("")
+st.write("")
+
+# PREGUNTAS SUGERIDAS
+st.markdown("## 💡 Preguntas sugeridas:")
+
+col1, col2 = st.columns(2)
 
 with col1:
-
-    st.markdown("### 📑 Documentos (uno por línea):")
-
-    documentos = st.text_area(
-        "",
-        height=180,
-        value="""Y cada vez
-Despiertas
-Buscando salir
-Al viento
-Sin nada que decir"""
-    )
-
-    st.markdown("### ❓ Escribe tu pregunta:")
-
-    pregunta = st.text_input(
-        "",
-        value="¿Dónde juegan el perro y el gato?"
-    )
-
-    st.write("")
-    st.write("")
-    st.write("")
-
-    st.button("🔎 Analizar")
-
-# ---------------- DERECHA ----------------
+    st.button("¿De qué trata la canción?")
+    st.button("¿Qué emoción expresa la letra?")
+    st.button("¿Qué palabras se repiten más?")
 
 with col2:
-
-    st.markdown("""
-    ## 💡 Preguntas sugeridas:
-    """)
-
-    st.button("¿De que trata la canción?")
-    st.button("Que flor menciona la canción")
-    st.button("Porque perdimos el tiempo")
-    st.button("A que realidad volvimos")
-    st.button("Que emoción tiene la canción")
+    st.button("¿Qué sentimiento transmite?")
+    st.button("¿La canción habla de tristeza?")
+    st.button("¿Cuál es el tema principal?")

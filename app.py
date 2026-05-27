@@ -5,7 +5,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
 # =========================
-# CONFIG
+# CONFIGURACIÓN
 # =========================
 
 st.set_page_config(
@@ -135,6 +135,84 @@ Sé que te querés dormir pa' no volver a despertar""",
 
         analizar = st.button("🔎 Analizar")
 
+        # =========================
+        # ANALISIS TF-IDF
+        # =========================
+
+        if analizar:
+
+            documentos = []
+
+            for linea in texto.split("\n"):
+
+                linea = linea.strip()
+
+                if linea != "":
+                    documentos.append(linea)
+
+            if len(documentos) == 0:
+
+                st.warning(
+                    "Escribe documentos para analizar."
+                )
+
+            else:
+
+                # TF-IDF
+                vectorizer = TfidfVectorizer()
+
+                matriz_tfidf = vectorizer.fit_transform(
+                    documentos + [pregunta]
+                )
+
+                palabras = vectorizer.get_feature_names_out()
+
+                # MATRIZ
+                matriz_df = pd.DataFrame(
+                    matriz_tfidf.toarray(),
+                    columns=palabras
+                )
+
+                matriz_df.index = (
+                    [f"Doc {i+1}" for i in range(len(documentos))]
+                    + ["Pregunta"]
+                )
+
+                st.write("")
+                st.subheader("📊 Matriz TF-IDF")
+
+                st.dataframe(
+                    matriz_df.iloc[:-1],
+                    use_container_width=True
+                )
+
+                # SIMILITUD
+                similitudes = cosine_similarity(
+                    matriz_tfidf[-1],
+                    matriz_tfidf[:-1]
+                )
+
+                indice_mejor = similitudes.argmax()
+
+                respuesta = documentos[indice_mejor]
+
+                score = similitudes[0][indice_mejor]
+
+                st.write("")
+                st.subheader("🎯 Respuesta")
+
+                st.markdown(
+                    f"**Tu pregunta:** {pregunta}"
+                )
+
+                st.success(
+                    f"Respuesta: {respuesta}"
+                )
+
+                st.info(
+                    f"📈 Similitud: {round(score, 3)}"
+                )
+
     # =========================
     # COLUMNA DERECHA
     # =========================
@@ -160,99 +238,4 @@ Sé que te querés dormir pa' no volver a despertar""",
                 </div>
                 """,
                 unsafe_allow_html=True
-            )
-
-    # =========================
-    # FUNCION DEL BOTON
-    # =========================
-
-    if analizar:
-
-        documentos = []
-
-        for linea in texto.split("\n"):
-
-            linea = linea.strip()
-
-            if linea != "":
-                documentos.append(linea)
-
-        if len(documentos) == 0:
-
-            st.warning(
-                "Escribe documentos para analizar."
-            )
-
-        else:
-
-            # =========================
-            # TF-IDF
-            # =========================
-
-            vectorizer = TfidfVectorizer()
-
-            matriz_tfidf = vectorizer.fit_transform(
-                documentos + [pregunta]
-            )
-
-            palabras = vectorizer.get_feature_names_out()
-
-            # =========================
-            # MATRIZ
-            # =========================
-
-            matriz_df = pd.DataFrame(
-                matriz_tfidf.toarray(),
-                columns=palabras
-            )
-
-            matriz_df.index = (
-                [f"Doc {i+1}" for i in range(len(documentos))]
-                + ["Pregunta"]
-            )
-
-            st.write("")
-            st.write("")
-
-            st.subheader("📊 Matriz TF-IDF")
-
-            st.dataframe(
-                matriz_df.iloc[:-1],
-                use_container_width=True
-            )
-
-            # =========================
-            # SIMILITUD
-            # =========================
-
-            similitudes = cosine_similarity(
-                matriz_tfidf[-1],
-                matriz_tfidf[:-1]
-            )
-
-            indice_mejor = similitudes.argmax()
-
-            respuesta = documentos[indice_mejor]
-
-            score = similitudes[0][indice_mejor]
-
-            # =========================
-            # RESPUESTA
-            # =========================
-
-            st.write("")
-            st.write("")
-
-            st.subheader("🎯 Respuesta")
-
-            st.markdown(
-                f"**Tu pregunta:** {pregunta}"
-            )
-
-            st.success(
-                f"Respuesta: {respuesta}"
-            )
-
-            st.info(
-                f"📈 Similitud: {round(score, 3)}"
             )

@@ -59,12 +59,12 @@ st.write("")
 st.write("")
 
 # CENTRAR TODO EL BLOQUE
-left, center, right = st.columns([1, 3, 1])
+left, center, right = st.columns([0.7, 2, 0.7])
 
 with center:
 
     # COLUMNAS INTERNAS
-    col1, col2 = st.columns([1.6, 1])
+    col1, col2 = st.columns([1.3, 1])
 
     # IZQUIERDA
     with col1:

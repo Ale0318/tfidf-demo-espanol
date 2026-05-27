@@ -1,6 +1,6 @@
 import streamlit as st
 
-# CONFIG
+# CONFIGURACIÓN
 st.set_page_config(
     page_title="Demo TF-IDF",
     layout="wide"
@@ -14,8 +14,8 @@ st.markdown("""
     background-color: white;
 }
 
-.main .block-container {
-    max-width: 1000px;
+.block-container{
+    max-width: 1200px;
     padding-top: 2rem;
     margin: auto;
 }
@@ -24,6 +24,11 @@ h1 {
     font-size: 52px !important;
     font-weight: 800 !important;
     text-align: center;
+    color: #2b2d42;
+}
+
+h2, h3 {
+    color: #2b2d42;
 }
 
 textarea, input {
@@ -31,12 +36,13 @@ textarea, input {
 }
 
 div.stButton > button {
-    border-radius: 14px;
+    border-radius: 16px;
     background-color: #ff5757;
     color: white;
     border: none;
     font-size: 20px;
-    padding: 10px 20px;
+    padding: 10px 22px;
+    width: 100%;
 }
 
 div.stButton > button:hover {
@@ -47,52 +53,52 @@ div.stButton > button:hover {
 </style>
 """, unsafe_allow_html=True)
 
-# CONTENEDOR CENTRAL
-with st.container():
+# TÍTULO
+st.markdown("# 🔎 Demo TF-IDF en Español")
 
-    # TITULO
-    st.markdown("# 🔎 Demo TF-IDF en Español")
+st.write("")
+st.write("")
 
-    st.write("")
+# COLUMNAS
+col1, col2 = st.columns([1.6, 1])
 
-    # COLUMNAS
-    col1, col2 = st.columns([2, 1])
+# COLUMNA IZQUIERDA
+with col1:
 
-    # IZQUIERDA
-    with col1:
+    st.markdown("## 📑 Documentos (uno por línea):")
 
-        st.markdown("### 📑 Documentos (uno por línea):")
-
-        documentos = st.text_area(
-            "",
-            height=180,
-            value="""Amor, no llores, veo luz en tus males
+    documentos = st.text_area(
+        "",
+        height=140,
+        value="""Amor, no llores, veo luz en tus males
 Siguiéndote el corazón, bailando en un canto de zorzales
 Niño, soy un hombre con tristeza, sé del peso en tu verdad
 Escaparte por robar porque robás para cenar
 Vi tus dedos en el barro con olor a libertad
 Sé que te querés dormir pa' no volver a despertar"""
-        )
+    )
 
-        st.markdown("### ❓ Escribe tu pregunta:")
+    st.write("")
 
-        pregunta = st.text_input(
-            "",
-            value="¿Qué sentimiento transmite la canción?"
-        )
+    st.markdown("## ❓ Escribe tu pregunta:")
 
-        st.write("")
-        st.write("")
+    pregunta = st.text_input(
+        "",
+        value="¿Qué sentimiento transmite la canción?"
+    )
 
-        st.button("🔎 Analizar")
+    st.write("")
+    st.write("")
 
-    # DERECHA
-    with col2:
+    st.button("🔎 Analizar")
 
-        st.markdown("## 💡 Preguntas sugeridas:")
+# COLUMNA DERECHA
+with col2:
 
-        st.button("¿De qué trata la canción?")
-        st.button("¿Qué emoción expresa?")
-        st.button("¿Qué sentimiento transmite?")
-        st.button("¿La canción habla de tristeza?")
-        st.button("¿Cuál es el tema principal?")
+    st.markdown("## 💡 Preguntas sugeridas:")
+
+    st.button("¿De qué trata la canción?")
+    st.button("¿Qué emoción expresa?")
+    st.button("¿Qué sentimiento transmite?")
+    st.button("¿La canción habla de tristeza?")
+    st.button("¿Cuál es el tema principal?")tema principal?")

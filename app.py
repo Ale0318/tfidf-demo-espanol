@@ -101,4 +101,4 @@ with col2:
     st.button("¿Qué emoción expresa?")
     st.button("¿Qué sentimiento transmite?")
     st.button("¿La canción habla de tristeza?")
-    st.button("¿Cuál es el tema principal?")tema principal?")
+    st.button("¿Cuál es el tema principal?")

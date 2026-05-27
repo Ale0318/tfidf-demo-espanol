@@ -60,11 +60,11 @@ div.stButton > button:hover {
 .pregunta-btn {
     background-color: #ff5757;
     color: white;
-    padding: 16px;
-    border-radius: 18px;
+    padding: 10px;
+    border-radius: 14px;
     text-align: center;
-    margin-bottom: 18px;
-    font-size: 18px;
+    margin-bottom: 12px;
+    font-size: 16px;
     font-weight: 600;
 }
 

@@ -4,6 +4,10 @@ import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
+# =========================
+# CONFIG
+# =========================
+
 st.set_page_config(
     page_title="Demo TF-IDF",
     layout="wide"
@@ -76,7 +80,7 @@ div.stButton > button:hover {
 """, unsafe_allow_html=True)
 
 # =========================
-# CENTRAR TODO EL CONTENIDO
+# CENTRAR CONTENIDO
 # =========================
 
 left, center, right = st.columns([1.2, 4, 1.2])
@@ -148,50 +152,64 @@ Sé que te querés dormir pa' no volver a despertar""",
         ]
 
         for p in preguntas:
+
             st.markdown(
-                f"<div class='pregunta-btn'>{p}</div>",
+                f"""
+                <div class='pregunta-btn'>
+                    {p}
+                </div>
+                """,
                 unsafe_allow_html=True
             )
 
     # =========================
-    # ANALISIS TF-IDF
+    # FUNCION DEL BOTON
     # =========================
 
     if analizar:
 
-        documentos = [
-            linea.strip()
-            for linea in texto.split("\n")
-            if linea.strip() != ""
-        ]
+        documentos = []
+
+        for linea in texto.split("\n"):
+
+            linea = linea.strip()
+
+            if linea != "":
+                documentos.append(linea)
 
         if len(documentos) == 0:
-            st.warning("Escribe documentos para analizar.")
-        
+
+            st.warning(
+                "Escribe documentos para analizar."
+            )
+
         else:
 
-            # Crear modelo TF-IDF
+            # =========================
+            # TF-IDF
+            # =========================
+
             vectorizer = TfidfVectorizer()
 
-            tfidf = vectorizer.fit_transform(
+            matriz_tfidf = vectorizer.fit_transform(
                 documentos + [pregunta]
             )
 
-            # =========================
-            # MATRIZ TF-IDF
-            # =========================
-
             palabras = vectorizer.get_feature_names_out()
 
-            matriz = pd.DataFrame(
-                tfidf.toarray(),
+            # =========================
+            # MATRIZ
+            # =========================
+
+            matriz_df = pd.DataFrame(
+                matriz_tfidf.toarray(),
                 columns=palabras
             )
 
-            matriz.index = [
-                f"Doc {i+1}"
-                for i in range(len(documentos))
-            ] + ["Pregunta"]
+            matriz_df.index = (
+                [f"Doc {i+1}" for i in range(len(documentos))]
+                + ["Pregunta"]
+            )
 
             st.write("")
             st.write("")
@@ -199,7 +217,7 @@ Sé que te querés dormir pa' no volver a despertar""",
             st.subheader("📊 Matriz TF-IDF")
 
             st.dataframe(
-                matriz.iloc[:-1],
+                matriz_df.iloc[:-1],
                 use_container_width=True
             )
 
@@ -207,22 +225,24 @@ Sé que te querés dormir pa' no volver a despertar""",
             # SIMILITUD
             # =========================
 
-            similitud = cosine_similarity(
-                tfidf[-1],
-                tfidf[:-1]
+            similitudes = cosine_similarity(
+                matriz_tfidf[-1],
+                matriz_tfidf[:-1]
             )
 
-            indice = similitud.argmax()
+            indice_mejor = similitudes.argmax()
 
-            respuesta = documentos[indice]
+            respuesta = documentos[indice_mejor]
 
-            score = similitud[0][indice]
+            score = similitudes[0][indice_mejor]
 
             # =========================
             # RESPUESTA
             # =========================
 
             st.write("")
+            st.write("")
+
             st.subheader("🎯 Respuesta")
 
             st.markdown(
@@ -236,4 +256,3 @@ Sé que te querés dormir pa' no volver a despertar""",
             st.info(
                 f"📈 Similitud: {round(score, 3)}"
             )
-        

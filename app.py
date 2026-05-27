@@ -53,7 +53,8 @@ div.stButton > button:hover {
 """, unsafe_allow_html=True)
 
 # TÍTULO
-st.markdown("# 🔎 Demo TF-IDF en Español")
+with center:
+    st.markdown("# 🔎 Demo TF-IDF en Español")
 
 st.write("")
 st.write("")

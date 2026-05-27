@@ -17,7 +17,12 @@ st.markdown("""
 .block-container{
     max-width: 1000px;
     padding-top: 2rem;
-    margin: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+[data-testid="stHorizontalBlock"]{
+    justify-content: center;
 }
 
 h1 {
